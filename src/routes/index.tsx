@@ -75,13 +75,21 @@ function Index() {
       {/* Price */}
       <section className="px-4 pt-6">
         <p className="text-4xl font-bold text-foreground">R$ 1.700</p>
-        <div className="flex items-center gap-2 mt-3 flex-wrap">
-          {["#2dd4bf","#a855f7","#1d4ed8","#dc2626","#3b82f6"].map((c,i) => (
-            <span key={i} className="w-7 h-7 rounded-full border-2 border-white shadow" style={{background:c}} />
-          ))}
+        <div className="flex items-center gap-1.5 mt-3 flex-wrap">
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[10px] font-bold text-white" style={{background:"#32BCAD"}}>PIX</span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[10px] font-bold text-white" style={{background:"#820AD1"}}>nu</span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[9px] font-bold italic text-white" style={{background:"#1A1F71"}}>VISA</span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center bg-white border border-border">
+            <span className="w-3 h-3 rounded-full bg-[#EB001B] -mr-1" />
+            <span className="w-3 h-3 rounded-full bg-[#F79E1B] opacity-90" />
+          </span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[9px] font-bold text-white" style={{background:"#000"}}>elo</span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[8px] font-bold text-white" style={{background:"#A6192E"}}>Hiper</span>
+          <span className="w-9 h-7 rounded-md flex items-center justify-center text-[9px] font-bold text-white" style={{background:"#006FCF"}}>AMEX</span>
         </div>
         <p className="text-foreground mt-4 font-medium">10x sem juros de R$ 170,00</p>
         <button className="text-[var(--olx-purple)] font-semibold text-sm mt-2">Mais opções de parcelamento</button>
+
       </section>
 
       {/* Actions list */}
