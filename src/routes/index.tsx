@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Heart, Share2, Camera, ChevronLeft, ChevronRight, Home, User, Layers,
-  ShoppingCart, MessageCircle, Star, Box, Copy, Zap, Award, Building2,
+  Heart, Share2, Camera, Layers,
+  Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube,
 } from "lucide-react";
@@ -39,7 +39,7 @@ function DetailCard({ icon: Icon, label, value }: { icon: any; label: string; va
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background pb-40">
+    <div className="min-h-screen bg-background pb-8">
       {/* Top bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10">
         <div className="flex items-center gap-1">
@@ -308,25 +308,6 @@ function Index() {
         </div>
       </footer>
 
-      {/* Sticky bottom actions */}
-      <div className="fixed bottom-0 inset-x-0 bg-white border-t border-border z-20">
-        <div className="grid grid-cols-2 gap-3 px-4 pt-3 pb-2">
-          <button className="bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5 flex items-center justify-center gap-2">
-            <ShoppingCart className="w-5 h-5" /> Comprar
-          </button>
-          <button className="bg-[var(--olx-orange-soft)] text-[var(--olx-orange)] font-semibold rounded-full py-3.5 flex items-center justify-center gap-2">
-            <MessageCircle className="w-5 h-5" /> Chat
-          </button>
-        </div>
-        <div className="bg-muted text-center text-muted-foreground text-sm py-3 mx-4 mt-1 rounded">publicidade</div>
-        <nav className="flex justify-around items-center py-3 bg-black text-white mt-1">
-          <ChevronLeft className="w-6 h-6" />
-          <ChevronRight className="w-6 h-6" />
-          <Home className="w-6 h-6" />
-          <div className="relative"><div className="w-6 h-6 border-2 border-white rounded" /><span className="absolute -top-1 -right-2 text-[10px]">74</span></div>
-          <User className="w-6 h-6" />
-        </nav>
-      </div>
     </div>
   );
 }
