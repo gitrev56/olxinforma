@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Heart, Share2, Camera, ChevronLeft, ChevronRight, Home, User, Layers,
-  ShoppingCart, MessageCircle, Star, Box, Copy, Zap, Award, Building2,
+  Heart, Share2, Camera, Layers,
+  Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube,
 } from "lucide-react";
