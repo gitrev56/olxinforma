@@ -3,7 +3,7 @@ import {
   Heart, Share2, Camera, Layers,
   Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
-  X, Ticket, BadgePercent, Calculator, Facebook, Youtube,
+  X, Ticket, BadgePercent, Calculator, Facebook, Youtube, MessageCircle,
 } from "lucide-react";
 import iphoneHero from "@/assets/iphone-hero.jpg";
 import related1 from "@/assets/iphone-related-1.jpg";
@@ -39,7 +39,7 @@ function DetailCard({ icon: Icon, label, value }: { icon: any; label: string; va
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background pb-8">
+    <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10">
         <div className="flex items-center gap-1">
@@ -307,6 +307,16 @@ function Index() {
           <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.87a6.34 6.34 0 0 0 10.86-4.43V8.87a8.16 8.16 0 0 0 4.77 1.52V6.93a4.85 4.85 0 0 1-1.84-.24z"/></svg>
         </div>
       </footer>
+
+      {/* Sticky bottom actions */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border z-50">
+        <div className="px-4 py-3 flex gap-3">
+          <button className="flex-1 bg-foreground text-background rounded-full py-3 font-bold text-base">Comprar</button>
+          <button className="flex-1 bg-[var(--olx-purple-soft)] text-[var(--olx-purple)] rounded-full py-3 font-bold text-base flex items-center justify-center gap-2">
+            <MessageCircle className="w-5 h-5" /> Chat
+          </button>
+        </div>
+      </div>
 
     </div>
   );
