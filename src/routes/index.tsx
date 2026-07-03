@@ -402,8 +402,60 @@ function Index() {
           </div>
 
           <div className="sticky bottom-0 bg-white px-6 py-4 flex justify-end border-t border-border">
-            <button className="bg-[var(--olx-orange)] text-white font-semibold rounded-full px-10 py-3.5">Continuar</button>
+            <button
+              disabled={deliveryOption === "olx" && !form.rua}
+              className="bg-[var(--olx-orange)] disabled:opacity-50 text-white font-semibold rounded-full px-10 py-3.5"
+            >
+              Continuar
+            </button>
           </div>
+        </div>
+      )}
+
+      {showForm && (
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col overflow-y-auto">
+          <div className="flex items-center gap-3 px-4 py-4 border-b border-border sticky top-0 bg-white">
+            <button onClick={() => setShowForm(false)}><ChevronLeft className="w-6 h-6" /></button>
+            <h2 className="text-lg font-bold">Endereço de entrega</h2>
+          </div>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setShowForm(false); }}
+            className="px-6 py-6 flex-1 space-y-5"
+          >
+            <div>
+              <p className="font-semibold text-foreground mb-3">Dados pessoais</p>
+              <div className="space-y-3">
+                <input value={form.nome} onChange={updateForm("nome")} maxLength={100} placeholder="Nome completo" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.cpf} onChange={updateForm("cpf")} maxLength={14} placeholder="CPF" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.telefone} onChange={updateForm("telefone")} maxLength={15} placeholder="Telefone (DDD + número)" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+              </div>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-3">Endereço</p>
+              <div className="space-y-3">
+                <input value={form.cep} onChange={updateForm("cep")} maxLength={9} placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.rua} onChange={updateForm("rua")} maxLength={120} placeholder="Rua / Avenida" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="grid grid-cols-2 gap-3">
+                  <input value={form.numero} onChange={updateForm("numero")} maxLength={10} placeholder="Número" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  <input value={form.complemento} onChange={updateForm("complemento")} maxLength={40} placeholder="Complemento" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                </div>
+                <input value={form.bairro} onChange={updateForm("bairro")} maxLength={80} placeholder="Bairro" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="grid grid-cols-[1fr_100px] gap-3">
+                  <input value={form.cidade} onChange={updateForm("cidade")} maxLength={80} placeholder="Cidade" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  <input value={form.estado} onChange={updateForm("estado")} maxLength={2} placeholder="UF" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm uppercase" />
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={!isFormValid}
+              className="w-full bg-[var(--olx-orange)] disabled:opacity-50 text-white font-semibold rounded-full py-3.5 mt-6"
+            >
+              Salvar endereço
+            </button>
+          </form>
         </div>
       )}
     </div>
