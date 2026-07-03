@@ -42,12 +42,43 @@ function Index() {
   const [showDelivery, setShowDelivery] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
   const [showForm, setShowForm] = useState(false);
+  const [cepLoading, setCepLoading] = useState(false);
+  const [cepError, setCepError] = useState("");
   const [form, setForm] = useState({
     nome: "", cpf: "", telefone: "", cep: "", rua: "", numero: "", complemento: "", bairro: "", cidade: "", estado: "",
   });
   const updateForm = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
+  const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 8);
+    const masked = raw.length > 5 ? `${raw.slice(0, 5)}-${raw.slice(5)}` : raw;
+    setForm((f) => ({ ...f, cep: masked }));
+    setCepError("");
+    if (raw.length === 8) {
+      setCepLoading(true);
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${raw}/json/`);
+        const data = await res.json();
+        if (data.erro) {
+          setCepError("CEP não encontrado");
+        } else {
+          setForm((f) => ({
+            ...f,
+            rua: data.logradouro || f.rua,
+            bairro: data.bairro || f.bairro,
+            cidade: data.localidade || f.cidade,
+            estado: data.uf || f.estado,
+          }));
+        }
+      } catch {
+        setCepError("Erro ao buscar CEP");
+      } finally {
+        setCepLoading(false);
+      }
+    }
+  };
   const isFormValid = form.nome && form.cpf && form.telefone && form.cep && form.rua && form.numero && form.bairro && form.cidade && form.estado;
+
   return (
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
@@ -434,7 +465,11 @@ function Index() {
             <div>
               <p className="font-semibold text-foreground mb-3">Endereço</p>
               <div className="space-y-3">
-                <input value={form.cep} onChange={updateForm("cep")} maxLength={9} placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="relative">
+                  <input value={form.cep} onChange={handleCepChange} maxLength={9} inputMode="numeric" placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  {cepLoading && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">Buscando...</span>}
+                </div>
+                {cepError && <p className="text-xs text-destructive -mt-1">{cepError}</p>}
                 <input value={form.rua} onChange={updateForm("rua")} maxLength={120} placeholder="Rua / Avenida" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
                 <div className="grid grid-cols-2 gap-3">
                   <input value={form.numero} onChange={updateForm("numero")} maxLength={10} placeholder="Número" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
