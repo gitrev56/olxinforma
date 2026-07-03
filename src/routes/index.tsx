@@ -42,12 +42,43 @@ function Index() {
   const [showDelivery, setShowDelivery] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
   const [showForm, setShowForm] = useState(false);
+  const [cepLoading, setCepLoading] = useState(false);
+  const [cepError, setCepError] = useState("");
   const [form, setForm] = useState({
     nome: "", cpf: "", telefone: "", cep: "", rua: "", numero: "", complemento: "", bairro: "", cidade: "", estado: "",
   });
   const updateForm = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
+  const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 8);
+    const masked = raw.length > 5 ? `${raw.slice(0, 5)}-${raw.slice(5)}` : raw;
+    setForm((f) => ({ ...f, cep: masked }));
+    setCepError("");
+    if (raw.length === 8) {
+      setCepLoading(true);
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${raw}/json/`);
+        const data = await res.json();
+        if (data.erro) {
+          setCepError("CEP não encontrado");
+        } else {
+          setForm((f) => ({
+            ...f,
+            rua: data.logradouro || f.rua,
+            bairro: data.bairro || f.bairro,
+            cidade: data.localidade || f.cidade,
+            estado: data.uf || f.estado,
+          }));
+        }
+      } catch {
+        setCepError("Erro ao buscar CEP");
+      } finally {
+        setCepLoading(false);
+      }
+    }
+  };
   const isFormValid = form.nome && form.cpf && form.telefone && form.cep && form.rua && form.numero && form.bairro && form.cidade && form.estado;
+
   return (
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
