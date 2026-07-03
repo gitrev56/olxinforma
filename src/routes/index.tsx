@@ -465,7 +465,11 @@ function Index() {
             <div>
               <p className="font-semibold text-foreground mb-3">Endereço</p>
               <div className="space-y-3">
-                <input value={form.cep} onChange={updateForm("cep")} maxLength={9} placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="relative">
+                  <input value={form.cep} onChange={handleCepChange} maxLength={9} inputMode="numeric" placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  {cepLoading && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">Buscando...</span>}
+                </div>
+                {cepError && <p className="text-xs text-destructive -mt-1">{cepError}</p>}
                 <input value={form.rua} onChange={updateForm("rua")} maxLength={120} placeholder="Rua / Avenida" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
                 <div className="grid grid-cols-2 gap-3">
                   <input value={form.numero} onChange={updateForm("numero")} maxLength={10} placeholder="Número" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
