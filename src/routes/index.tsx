@@ -41,6 +41,13 @@ function DetailCard({ icon: Icon, label, value }: { icon: any; label: string; va
 function Index() {
   const [showDelivery, setShowDelivery] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({
+    nome: "", cpf: "", telefone: "", cep: "", rua: "", numero: "", complemento: "", bairro: "", cidade: "", estado: "",
+  });
+  const updateForm = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const isFormValid = form.nome && form.cpf && form.telefone && form.cep && form.rua && form.numero && form.bairro && form.cidade && form.estado;
   return (
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
@@ -341,15 +348,23 @@ function Index() {
                 <div className="w-20 h-20 shrink-0 rounded-xl bg-[var(--olx-purple-soft)] flex items-center justify-center text-4xl">🚚</div>
                 <div className="flex-1 pt-1">
                   <p className="font-bold text-lg text-foreground">Entrega pela OLX</p>
-                  <p className="text-muted-foreground mt-1">Rua Serranos, 82</p>
-                  <p className="text-muted-foreground">Vila Nova Bonsucesso,...</p>
+                  {form.rua ? (
+                    <>
+                      <p className="text-muted-foreground mt-1">{form.rua}, {form.numero}</p>
+                      <p className="text-muted-foreground">{form.bairro}, {form.cidade} - {form.estado}</p>
+                    </>
+                  ) : (
+                    <p className="text-muted-foreground mt-1 italic">Nenhum endereço cadastrado</p>
+                  )}
                 </div>
                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 ${deliveryOption === "olx" ? "border-[var(--olx-purple)]" : "border-muted-foreground"}`}>
                   {deliveryOption === "olx" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
                 </div>
               </div>
               <div className="h-px bg-border mx-5" />
-              <p className="text-[var(--olx-purple)] font-semibold px-5 py-4">Mudar endereço</p>
+              <p onClick={(e) => { e.stopPropagation(); setShowForm(true); }} className="text-[var(--olx-purple)] font-semibold px-5 py-4 cursor-pointer">
+                {form.rua ? "Alterar endereço" : "Cadastrar endereço"}
+              </p>
             </button>
 
             <button
@@ -387,8 +402,60 @@ function Index() {
           </div>
 
           <div className="sticky bottom-0 bg-white px-6 py-4 flex justify-end border-t border-border">
-            <button className="bg-[var(--olx-orange)] text-white font-semibold rounded-full px-10 py-3.5">Continuar</button>
+            <button
+              disabled={deliveryOption === "olx" && !form.rua}
+              className="bg-[var(--olx-orange)] disabled:opacity-50 text-white font-semibold rounded-full px-10 py-3.5"
+            >
+              Continuar
+            </button>
           </div>
+        </div>
+      )}
+
+      {showForm && (
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col overflow-y-auto">
+          <div className="flex items-center gap-3 px-4 py-4 border-b border-border sticky top-0 bg-white">
+            <button onClick={() => setShowForm(false)}><ChevronLeft className="w-6 h-6" /></button>
+            <h2 className="text-lg font-bold">Endereço de entrega</h2>
+          </div>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setShowForm(false); }}
+            className="px-6 py-6 flex-1 space-y-5"
+          >
+            <div>
+              <p className="font-semibold text-foreground mb-3">Dados pessoais</p>
+              <div className="space-y-3">
+                <input value={form.nome} onChange={updateForm("nome")} maxLength={100} placeholder="Nome completo" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.cpf} onChange={updateForm("cpf")} maxLength={14} placeholder="CPF" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.telefone} onChange={updateForm("telefone")} maxLength={15} placeholder="Telefone (DDD + número)" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+              </div>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-3">Endereço</p>
+              <div className="space-y-3">
+                <input value={form.cep} onChange={updateForm("cep")} maxLength={9} placeholder="CEP" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <input value={form.rua} onChange={updateForm("rua")} maxLength={120} placeholder="Rua / Avenida" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="grid grid-cols-2 gap-3">
+                  <input value={form.numero} onChange={updateForm("numero")} maxLength={10} placeholder="Número" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  <input value={form.complemento} onChange={updateForm("complemento")} maxLength={40} placeholder="Complemento" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                </div>
+                <input value={form.bairro} onChange={updateForm("bairro")} maxLength={80} placeholder="Bairro" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                <div className="grid grid-cols-[1fr_100px] gap-3">
+                  <input value={form.cidade} onChange={updateForm("cidade")} maxLength={80} placeholder="Cidade" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm" />
+                  <input value={form.estado} onChange={updateForm("estado")} maxLength={2} placeholder="UF" className="w-full px-4 py-3.5 rounded-xl border border-border text-sm uppercase" />
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={!isFormValid}
+              className="w-full bg-[var(--olx-orange)] disabled:opacity-50 text-white font-semibold rounded-full py-3.5 mt-6"
+            >
+              Salvar endereço
+            </button>
+          </form>
         </div>
       )}
     </div>
