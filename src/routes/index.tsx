@@ -39,6 +39,8 @@ function DetailCard({ icon: Icon, label, value }: { icon: any; label: string; va
 }
 
 function Index() {
+  const [showDelivery, setShowDelivery] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
   return (
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
