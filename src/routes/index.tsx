@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   Heart, Share2, Camera, ChevronLeft, ChevronRight, Home, User, Layers,
   ShoppingCart, MessageCircle, Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
-  X, Ticket, BadgePercent, Calculator, Facebook, Youtube,
+  X, Ticket, BadgePercent, Calculator, Facebook, Youtube, Info,
 } from "lucide-react";
 import iphoneHero from "@/assets/iphone-hero.jpg";
 import related1 from "@/assets/iphone-related-1.jpg";
@@ -38,6 +39,8 @@ function DetailCard({ icon: Icon, label, value }: { icon: any; label: string; va
 }
 
 function Index() {
+  const [showDelivery, setShowDelivery] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
   return (
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
@@ -311,7 +314,7 @@ function Index() {
       {/* Sticky bottom actions */}
       <div className="fixed bottom-0 inset-x-0 bg-white border-t border-border z-20">
         <div className="grid grid-cols-2 gap-3 px-4 pt-3 pb-2">
-          <button className="bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5 flex items-center justify-center gap-2">
+          <button onClick={() => setShowDelivery(true)} className="bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5 flex items-center justify-center gap-2">
             <ShoppingCart className="w-5 h-5" /> Comprar
           </button>
           <button className="bg-[var(--olx-orange-soft)] text-[var(--olx-orange)] font-semibold rounded-full py-3.5 flex items-center justify-center gap-2">
@@ -320,6 +323,74 @@ function Index() {
         </div>
         <div className="bg-muted text-center text-muted-foreground text-sm py-3 mx-4 mt-1 rounded">publicidade</div>
       </div>
+
+      {showDelivery && (
+        <div className="fixed inset-0 z-50 bg-white flex flex-col overflow-y-auto">
+          <button onClick={() => setShowDelivery(false)} className="p-5 self-start">
+            <X className="w-7 h-7" />
+          </button>
+          <div className="px-6 pb-6 flex-1">
+            <h1 className="text-3xl font-bold text-foreground leading-tight">Como você quer receber o produto?</h1>
+
+            <button
+              onClick={() => setDeliveryOption("olx")}
+              className={`relative w-full mt-8 rounded-2xl border-2 text-left transition ${deliveryOption === "olx" ? "border-[var(--olx-purple)]" : "border-border"}`}
+            >
+              <span className="absolute -top-3 left-5 bg-[var(--olx-purple-soft)] text-[var(--olx-purple)] text-xs font-semibold px-3 py-1 rounded-md">Recomendado</span>
+              <div className="p-5 flex items-start gap-4">
+                <div className="w-20 h-20 shrink-0 rounded-xl bg-[var(--olx-purple-soft)] flex items-center justify-center text-4xl">🚚</div>
+                <div className="flex-1 pt-1">
+                  <p className="font-bold text-lg text-foreground">Entrega pela OLX</p>
+                  <p className="text-muted-foreground mt-1">Rua Serranos, 82</p>
+                  <p className="text-muted-foreground">Vila Nova Bonsucesso,...</p>
+                </div>
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 ${deliveryOption === "olx" ? "border-[var(--olx-purple)]" : "border-muted-foreground"}`}>
+                  {deliveryOption === "olx" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
+                </div>
+              </div>
+              <div className="h-px bg-border mx-5" />
+              <p className="text-[var(--olx-purple)] font-semibold px-5 py-4">Mudar endereço</p>
+            </button>
+
+            <button
+              onClick={() => setDeliveryOption("seller")}
+              className={`w-full mt-6 rounded-2xl border-2 text-left transition ${deliveryOption === "seller" ? "border-[var(--olx-purple)]" : "border-border"}`}
+            >
+              <div className="p-5 flex items-start gap-4">
+                <div className="w-20 h-20 shrink-0 rounded-full bg-[var(--olx-purple)] flex items-center justify-center text-4xl">🤝</div>
+                <div className="flex-1 pt-1">
+                  <p className="font-bold text-lg text-foreground">Retirar com vendedor</p>
+                  <p className="text-muted-foreground mt-1">Combine diretamente com ele através do chat da OLX.</p>
+                </div>
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 ${deliveryOption === "seller" ? "border-[var(--olx-purple)]" : "border-muted-foreground"}`}>
+                  {deliveryOption === "seller" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
+                </div>
+              </div>
+              <div className="h-px bg-border mx-5" />
+              <p className="flex items-center gap-2 text-foreground px-5 py-4">
+                <MapPin className="w-5 h-5" /> Coroa do Meio, Aracaju - SE
+              </p>
+            </button>
+
+            <div className="mt-6 rounded-2xl bg-sky-50 p-5 flex gap-3">
+              <Info className="w-6 h-6 text-sky-600 shrink-0" />
+              <div className="text-sky-800">
+                <p className="font-bold">Envio do produto</p>
+                <p className="mt-2 leading-relaxed">O vendedor tem 5 dias para fazer o envio após o pagamento ser confirmado. Se esse prazo não for cumprido, você poderá cancelar a compra e o valor será estornado.</p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex gap-1">
+              <div className="h-1.5 w-24 bg-[var(--olx-purple)] rounded-full" />
+              <div className="h-1.5 flex-1 bg-muted rounded-full" />
+            </div>
+          </div>
+
+          <div className="sticky bottom-0 bg-white px-6 py-4 flex justify-end border-t border-border">
+            <button className="bg-[var(--olx-orange)] text-white font-semibold rounded-full px-10 py-3.5">Continuar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
