@@ -43,6 +43,8 @@ function Index() {
   const [deliveryOption, setDeliveryOption] = useState<"olx" | "seller">("olx");
   const [showForm, setShowForm] = useState(false);
   const [showDeliveryType, setShowDeliveryType] = useState(false);
+  const [showDeliveryDeadline, setShowDeliveryDeadline] = useState(false);
+  const [deliveryDeadline, setDeliveryDeadline] = useState<"padrao" | "expressa">("padrao");
   const [cepLoading, setCepLoading] = useState(false);
   const [cepError, setCepError] = useState("");
   const [form, setForm] = useState({
@@ -509,6 +511,98 @@ function Index() {
           <div className="sticky bottom-0 bg-white px-6 py-4 border-t border-border flex gap-3">
             <button
               onClick={() => setShowDeliveryType(false)}
+              className="flex-1 border border-foreground text-foreground font-semibold rounded-full py-3.5"
+            >
+              Voltar
+            </button>
+            <button
+              onClick={() => setShowDeliveryDeadline(true)}
+              className="flex-1 bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5"
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showDeliveryDeadline && (
+        <div className="fixed inset-0 z-50 bg-white flex flex-col overflow-y-auto">
+          <button onClick={() => setShowDeliveryDeadline(false)} className="p-5 self-start">
+            <X className="w-7 h-7" />
+          </button>
+          <div className="px-6 pb-6 flex-1">
+            <h1 className="text-3xl font-bold text-foreground leading-tight">Escolha o prazo de entrega</h1>
+
+            <div className="mt-8 rounded-2xl border border-border p-5 flex items-start gap-3">
+              <MapPin className="w-6 h-6 text-foreground shrink-0 mt-0.5" />
+              <div className="text-foreground text-sm leading-relaxed">
+                {form.rua ? (
+                  <>
+                    {form.rua},{form.numero}{form.complemento ? `,${form.complemento}` : ""},{form.bairro},{form.cidade}-{form.estado}
+                  </>
+                ) : (
+                  "Nenhum endereço cadastrado"
+                )}
+                <button onClick={() => { setShowDeliveryDeadline(false); setShowForm(true); }} className="text-[var(--olx-purple)] font-semibold ml-1 underline">
+                  Mudar endereço
+                </button>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setDeliveryDeadline("padrao")}
+              className={`w-full mt-6 rounded-2xl border-2 text-left transition ${deliveryDeadline === "padrao" ? "border-[var(--olx-purple)]" : "border-border"}`}
+            >
+              <div className="p-5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${deliveryDeadline === "padrao" ? "border-[var(--olx-purple)]" : "border-muted-foreground"}`}>
+                    {deliveryDeadline === "padrao" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg text-foreground">Padrão</p>
+                    <p className="text-muted-foreground">Até 15 dias úteis</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-muted-foreground line-through">R$ 44,33</p>
+                  <p className="text-[var(--olx-green-text)] font-bold text-lg">R$ 16,43</p>
+                </div>
+              </div>
+              <div className="px-5 pb-5">
+                <button className="text-foreground font-semibold underline text-sm">Saiba por que o frete não foi gratuito.</button>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setDeliveryDeadline("expressa")}
+              className={`w-full mt-4 rounded-2xl border-2 text-left transition ${deliveryDeadline === "expressa" ? "border-[var(--olx-purple)]" : "border-border"}`}
+            >
+              <div className="p-5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${deliveryDeadline === "expressa" ? "border-[var(--olx-purple)]" : "border-muted-foreground"}`}>
+                    {deliveryDeadline === "expressa" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
+                  </div>
+                  <div>
+                    <p className="font-bold text-lg text-foreground">Expressa</p>
+                    <p className="text-muted-foreground">Até 11 dias úteis</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-muted-foreground line-through">R$ 65,68</p>
+                  <p className="text-[var(--olx-green-text)] font-bold text-lg">R$ 37,78</p>
+                </div>
+              </div>
+            </button>
+
+            <div className="mt-8 flex gap-1">
+              <div className="h-1.5 w-24 bg-[var(--olx-purple)] rounded-full" />
+              <div className="h-1.5 flex-1 bg-muted rounded-full" />
+            </div>
+          </div>
+
+          <div className="sticky bottom-0 bg-white px-6 py-4 border-t border-border flex gap-3">
+            <button
+              onClick={() => setShowDeliveryDeadline(false)}
               className="flex-1 border border-foreground text-foreground font-semibold rounded-full py-3.5"
             >
               Voltar
