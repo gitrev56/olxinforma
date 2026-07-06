@@ -7,7 +7,6 @@ import {
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube, Info, Wallet, Clock,
 } from "lucide-react";
 import iphonePhoto1 from "@/assets/iphone-photo-1.webp.asset.json";
-import olxLogo from "@/assets/olx.png.asset.json";
 import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
 import iphonePhoto3 from "@/assets/iphone-photo-3.webp.asset.json";
 import related1 from "@/assets/iphone-related-1.jpg";
@@ -98,7 +97,11 @@ function Index() {
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10">
-        <img src={olxLogo.url} alt="OLX" className="h-8 w-auto" />
+        <div className="flex items-center gap-1">
+          <span className="text-2xl font-black text-[var(--olx-purple)] tracking-tight">o</span>
+          <span className="text-2xl font-black text-[var(--olx-green-text)]">l</span>
+          <span className="text-2xl font-black text-[var(--olx-orange)]">x</span>
+        </div>
         <div className="flex items-center gap-4">
           <Heart className="w-5 h-5 stroke-[1.5]" />
           <Share2 className="w-5 h-5 stroke-[1.5]" />
