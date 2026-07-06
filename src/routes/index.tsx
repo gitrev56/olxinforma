@@ -108,13 +108,25 @@ function Index() {
         </div>
       </header>
 
-      {/* Hero image */}
+      {/* Hero image carousel */}
       <div className="relative bg-muted">
-        <img src={iphoneHero} alt="iPhone 13 Pro azul" width={1024} height={1024} className="w-full aspect-square object-cover" />
+        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none">
+          {[iphonePhoto1, iphonePhoto2, iphonePhoto3].map((p, i) => (
+            <img
+              key={i}
+              src={p.url}
+              alt={`iPhone 13 Pro foto ${i + 1}`}
+              width={1024}
+              height={1024}
+              className="w-full aspect-square object-cover flex-shrink-0 snap-center"
+            />
+          ))}
+        </div>
         <div className="absolute top-3 right-3 bg-black/60 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5">
-          <Camera className="w-3.5 h-3.5" /> 1/6
+          <Camera className="w-3.5 h-3.5" /> 1/3
         </div>
       </div>
+
 
       {/* Title + chips */}
       <section className="px-4 pt-5">
