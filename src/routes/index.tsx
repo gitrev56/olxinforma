@@ -81,6 +81,15 @@ function Index() {
     }
   };
   const isFormValid = form.nome && form.cpf && form.telefone && form.cep && form.rua && form.numero && form.bairro && form.cidade && form.estado;
+  const [showSecurity, setShowSecurity] = useState(false);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
+
+  useEffect(() => {
+    const hidden = localStorage.getItem("olx-security-modal-hidden");
+    if (hidden === "true") return;
+    const timer = setTimeout(() => setShowSecurity(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background pb-40">
