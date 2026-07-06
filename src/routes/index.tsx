@@ -7,6 +7,7 @@ import {
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube, Info, Wallet, Clock,
 } from "lucide-react";
 import iphonePhoto1 from "@/assets/iphone-photo-1.webp.asset.json";
+import olxLogo from "@/assets/olx.png.asset.json";
 import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
 import iphonePhoto3 from "@/assets/iphone-photo-3.webp.asset.json";
 import related1 from "@/assets/iphone-related-1.jpg";
