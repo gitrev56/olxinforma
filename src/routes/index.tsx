@@ -296,7 +296,7 @@ function Index() {
             <p className="flex items-center gap-3"><Calendar className="w-5 h-5" /> Na OLX desde janeiro de 2022</p>
             <p className="flex items-center gap-3"><MapPin className="w-5 h-5" /> Coroa do Meio, Aracaju - SE</p>
           </div>
-          <button className="w-full mt-6 border border-foreground rounded-full py-3 font-semibold">Acessar perfil do anunciante</button>
+          <button onClick={() => setShowProfile(true)} className="w-full mt-6 border border-foreground rounded-full py-3 font-semibold">Acessar perfil do anunciante</button>
 
           <div className="h-px bg-border my-6" />
 
