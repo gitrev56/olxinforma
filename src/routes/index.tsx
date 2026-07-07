@@ -5,6 +5,7 @@ import {
   ShoppingCart, MessageCircle, Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube, Info, Wallet, Clock,
+  Search, SlidersHorizontal, ChevronDown, ImageIcon,
 } from "lucide-react";
 import iphonePhoto1 from "@/assets/iphone-photo-1.webp.asset.json";
 import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
@@ -86,6 +87,7 @@ function Index() {
   const isFormValid = form.nome && form.cpf && form.telefone && form.cep && form.rua && form.numero && form.bairro && form.cidade && form.estado;
   const [showSecurity, setShowSecurity] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const hidden = localStorage.getItem("olx-security-modal-hidden");
@@ -294,7 +296,7 @@ function Index() {
             <p className="flex items-center gap-3"><Calendar className="w-5 h-5" /> Na OLX desde janeiro de 2022</p>
             <p className="flex items-center gap-3"><MapPin className="w-5 h-5" /> Coroa do Meio, Aracaju - SE</p>
           </div>
-          <button className="w-full mt-6 border border-foreground rounded-full py-3 font-semibold">Acessar perfil do anunciante</button>
+          <button onClick={() => setShowProfile(true)} className="w-full mt-6 border border-foreground rounded-full py-3 font-semibold">Acessar perfil do anunciante</button>
 
           <div className="h-px bg-border my-6" />
 
@@ -740,6 +742,114 @@ function Index() {
             >
               Entendi
             </button>
+          </div>
+        </div>
+      )}
+      {showProfile && (
+        <div className="fixed inset-0 z-[65] bg-white flex flex-col overflow-y-auto">
+          {/* Header */}
+          <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10 border-b border-border">
+            <div className="flex items-center gap-3">
+              <button onClick={() => setShowProfile(false)}><ChevronLeft className="w-6 h-6" /></button>
+              <img src={olxLogo} alt="OLX" className="h-7 w-auto object-contain" />
+            </div>
+            <Share2 className="w-5 h-5 stroke-[1.5]" />
+          </header>
+
+          <div className="px-4 py-5">
+            {/* Seller card */}
+            <div className="border border-border rounded-2xl p-5">
+              <div className="flex items-center gap-4">
+                <img src={sellerAvatar} alt="Petala A." className="w-20 h-20 rounded-full object-cover" />
+                <div>
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    Conta verificada <CheckCircle2 className="w-4 h-4 fill-sky-500 text-white" />
+                  </div>
+                  <p className="text-2xl font-bold mt-1">Petala A.</p>
+                  <p className="text-muted-foreground text-sm">último acesso há 4 horas</p>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <div className="flex justify-center mb-2">
+                  <span className="bg-[var(--olx-green-soft)] text-[var(--olx-green-text)] text-sm px-3 py-1 rounded-full">Avançado</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  {[0.7, 0.6, 1, 0.4].map((o, i) => (
+                    <div key={i} className="h-2 flex-1 rounded-full" style={{ background: `color-mix(in oklab, var(--olx-purple) ${o * 100}%, white)` }} />
+                  ))}
+                  <div className="h-2 flex-1 rounded-full bg-muted" />
+                  <Award className="w-5 h-5 ml-1 text-muted-foreground" />
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-3 text-foreground">
+                <p className="flex items-center gap-3"><Calendar className="w-5 h-5" /> Na OLX desde 2022</p>
+                <p className="flex items-center gap-3"><MapPin className="w-5 h-5" /> Coroa do Meio, Aracaju - SE</p>
+              </div>
+            </div>
+
+            {/* Histórico */}
+            <div className="mt-8">
+              <h2 className="text-2xl font-semibold flex items-center gap-2">
+                Histórico <Info className="w-5 h-5 text-muted-foreground" />
+              </h2>
+              <div className="mt-4 border border-border rounded-2xl p-5 flex items-center gap-4">
+                <ImageIcon className="w-10 h-10 stroke-[1.5]" />
+                <div>
+                  <p className="text-foreground"><span className="text-2xl font-semibold">1</span> <span className="text-sm">anúncio</span></p>
+                  <p className="text-muted-foreground text-sm mt-0.5">Publicado nos últimos 180 dias</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Anúncios */}
+            <div className="mt-8">
+              <h2 className="text-2xl font-semibold">Anúncios</h2>
+              <p className="text-muted-foreground mt-1">1 de 1 anúncio publicado</p>
+
+              <div className="mt-5 relative">
+                <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <input placeholder="Ex: Apartamento 2 quartos" className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-border text-sm placeholder:text-muted-foreground" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 mt-5">
+                <button className="border border-border rounded-xl py-3 flex items-center justify-center gap-2 text-foreground">
+                  <SlidersHorizontal className="w-4 h-4" /> Filtros
+                </button>
+                <button className="border border-border rounded-xl py-3 flex items-center justify-center gap-2 text-foreground">
+                  <SlidersHorizontal className="w-4 h-4" /> Mais recentes <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Ad card */}
+              <button
+                onClick={() => setShowProfile(false)}
+                className="w-full text-left mt-6 border border-border rounded-2xl overflow-hidden"
+              >
+                <div className="relative bg-muted">
+                  <img src={iphonePhoto1.url} alt="iPhone 13 Pro" className="w-full aspect-square object-cover" />
+                  <div className="absolute top-1/2 right-3 -translate-y-1/2 w-10 h-14 rounded-lg bg-black/60 text-white flex items-center justify-center">
+                    <ChevronRight className="w-5 h-5" />
+                  </div>
+                  <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5">
+                    <Camera className="w-3.5 h-3.5" /> 3
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-2xl font-bold text-foreground">R$ 1.700</p>
+                  <p className="mt-4 text-foreground">iPhone 13 Pro 256gb</p>
+                  <div className="h-px bg-border my-5" />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="flex items-center gap-2 text-foreground"><MapPin className="w-4 h-4" /> Aracaju - SE</p>
+                      <p className="text-muted-foreground text-sm mt-1">Hoje, agora</p>
+                    </div>
+                    <Heart className="w-6 h-6 stroke-[1.5]" />
+                  </div>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       )}
