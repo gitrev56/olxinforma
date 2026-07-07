@@ -98,7 +98,7 @@ function Index() {
     <div className="min-h-screen bg-background pb-40">
       {/* Top bar */}
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10">
-        <img src={olxLogo.url} alt="OLX" className="h-7 w-auto object-contain" />
+        <img src={olxLogo} alt="OLX" className="h-7 w-auto object-contain" />
         <div className="flex items-center gap-4">
           <Heart className="w-5 h-5 stroke-[1.5]" />
           <Share2 className="w-5 h-5 stroke-[1.5]" />
