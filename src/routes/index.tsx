@@ -5,6 +5,7 @@ import {
   ShoppingCart, MessageCircle, Star, Box, Copy, Zap, Award, Building2,
   MapPin, Calendar, CheckCircle2, XCircle, ShieldCheck, CreditCard, Truck,
   X, Ticket, BadgePercent, Calculator, Facebook, Youtube, Info, Wallet, Clock,
+  Search, SlidersHorizontal, ChevronDown, ImageIcon,
 } from "lucide-react";
 import iphonePhoto1 from "@/assets/iphone-photo-1.webp.asset.json";
 import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
