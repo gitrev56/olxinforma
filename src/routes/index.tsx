@@ -9,7 +9,7 @@ import {
 import iphonePhoto1 from "@/assets/iphone-photo-1.webp.asset.json";
 import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
 import iphonePhoto3 from "@/assets/iphone-photo-3.webp.asset.json";
-import olxLogo from "@/assets/olx-logo.png.asset.json";
+import olxLogo from "@/assets/olx-logo-clean.png";
 import related1 from "@/assets/iphone-related-1.jpg";
 import related2 from "@/assets/iphone-related-2.jpg";
 import sellerAvatar from "@/assets/seller-avatar.jpg";
