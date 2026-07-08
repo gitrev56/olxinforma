@@ -706,7 +706,7 @@ function Index() {
             >
               Voltar
             </button>
-            <button className="flex-1 bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5">
+            <button onClick={finalizePurchase} className="flex-1 bg-[var(--olx-orange)] text-white font-semibold rounded-full py-3.5">
               Continuar
             </button>
           </div>
