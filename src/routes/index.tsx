@@ -167,14 +167,22 @@ function Index() {
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-10">
         <img src={olxLogo} alt="OLX" className="h-7 w-auto object-contain" />
         <div className="flex items-center gap-4">
-          <Heart className="w-5 h-5 stroke-[1.5]" />
-          <Share2 className="w-5 h-5 stroke-[1.5]" />
+          <button onClick={() => setFavorite((f) => !f)} aria-label="Favoritar">
+            <Heart className={`w-5 h-5 stroke-[1.5] transition ${favorite ? "fill-red-500 text-red-500" : ""}`} />
+          </button>
+          <button onClick={shareAd} aria-label="Compartilhar">
+            <Share2 className="w-5 h-5 stroke-[1.5]" />
+          </button>
         </div>
       </header>
 
       {/* Hero image carousel */}
       <div className="relative bg-muted">
-        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none">
+        <div
+          ref={carouselRef}
+          onScroll={handleCarouselScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none"
+        >
           {[iphonePhoto1, iphonePhoto2, iphonePhoto3].map((p, i) => (
             <img
               key={i}
@@ -187,9 +195,10 @@ function Index() {
           ))}
         </div>
         <div className="absolute top-3 right-3 bg-black/60 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5">
-          <Camera className="w-3.5 h-3.5" /> 1/3
+          <Camera className="w-3.5 h-3.5" /> {currentPhoto + 1}/3
         </div>
       </div>
+
 
 
       {/* Title + chips */}
