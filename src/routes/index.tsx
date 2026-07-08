@@ -88,6 +88,71 @@ function Index() {
   const [showSecurity, setShowSecurity] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState(0);
+  const [couponCopied, setCouponCopied] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [showOffer, setShowOffer] = useState(false);
+  const [offerValue, setOfferValue] = useState("");
+  const [offerSent, setOfferSent] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ from: "me" | "seller"; text: string; time: string }[]>([
+    { from: "seller", text: "Olá! Obrigada pelo interesse no iPhone 13 Pro 😊", time: "14:32" },
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  const handleCarouselScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    if (idx !== currentPhoto) setCurrentPhoto(idx);
+  };
+
+  const copyCoupon = async () => {
+    try { await navigator.clipboard.writeText("PROMO20"); } catch { /* noop */ }
+    setCouponCopied(true);
+    setTimeout(() => setCouponCopied(false), 2000);
+  };
+
+  const shareAd = async () => {
+    const data = { title: "iPhone 13 Pro 256gb", text: "iPhone 13 Pro 256gb - R$ 1.700 na OLX", url: typeof window !== "undefined" ? window.location.href : "" };
+    try {
+      if (navigator.share) await navigator.share(data);
+      else await navigator.clipboard.writeText(data.url);
+    } catch { /* user cancelled */ }
+  };
+
+  const sendChat = (text: string) => {
+    const t = text.trim();
+    if (!t) return;
+    const now = new Date();
+    const time = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+    setChatMessages((m) => [...m, { from: "me", text: t, time }]);
+    setChatInput("");
+    setTimeout(() => {
+      const now2 = new Date();
+      const time2 = `${String(now2.getHours()).padStart(2, "0")}:${String(now2.getMinutes()).padStart(2, "0")}`;
+      setChatMessages((m) => [...m, { from: "seller", text: "Recebi sua mensagem, respondo em instantes!", time: time2 }]);
+    }, 900);
+  };
+
+  const submitOffer = () => {
+    if (!offerValue) return;
+    setOfferSent(true);
+    setTimeout(() => { setShowOffer(false); setOfferSent(false); setOfferValue(""); }, 1600);
+  };
+
+  const finalizePurchase = () => {
+    setShowDeliveryDeadline(false);
+    setShowDeliveryType(false);
+    setShowDelivery(false);
+    setShowSuccess(true);
+  };
+
+  useEffect(() => {
+    if (showChat) chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages, showChat]);
 
   useEffect(() => {
     const hidden = localStorage.getItem("olx-security-modal-hidden");
