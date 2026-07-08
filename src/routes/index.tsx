@@ -930,6 +930,117 @@ function Index() {
           </div>
         </div>
       )}
+
+      {showChat && (
+        <div className="fixed inset-0 z-[75] bg-white flex flex-col">
+          <header className="flex items-center gap-3 px-4 py-3 border-b border-border">
+            <button onClick={() => setShowChat(false)} aria-label="Voltar"><ChevronLeft className="w-6 h-6" /></button>
+            <img src={sellerAvatar} alt="Petala A." className="w-10 h-10 rounded-full object-cover" />
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold truncate flex items-center gap-1.5">Petala A. <CheckCircle2 className="w-4 h-4 fill-sky-500 text-white" /></p>
+              <p className="text-xs text-muted-foreground">online agora</p>
+            </div>
+          </header>
+          <div className="px-4 py-3 border-b border-border flex items-center gap-3 bg-muted/50">
+            <img src={iphonePhoto1.url} alt="" className="w-12 h-12 rounded-lg object-cover" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium truncate">iPhone 13 Pro 256gb</p>
+              <p className="text-sm font-bold text-foreground">R$ 1.700</p>
+            </div>
+          </div>
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-[#f7f7fb]">
+            {chatMessages.map((m, i) => (
+              <div key={i} className={`flex ${m.from === "me" ? "justify-end" : "justify-start"}`}>
+                <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${m.from === "me" ? "bg-[var(--olx-purple)] text-white rounded-br-sm" : "bg-white border border-border text-foreground rounded-bl-sm"}`}>
+                  <p className="whitespace-pre-wrap break-words">{m.text}</p>
+                  <p className={`text-[10px] mt-1 ${m.from === "me" ? "text-white/70 text-right" : "text-muted-foreground"}`}>{m.time}</p>
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+          <form
+            onSubmit={(e) => { e.preventDefault(); sendChat(chatInput); }}
+            className="flex items-center gap-2 px-3 py-3 border-t border-border bg-white"
+          >
+            <input
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              placeholder="Escreva uma mensagem"
+              className="flex-1 px-4 py-3 rounded-full border border-border text-sm bg-muted/40"
+            />
+            <button
+              type="submit"
+              disabled={!chatInput.trim()}
+              className="w-11 h-11 rounded-full bg-[var(--olx-purple)] text-white flex items-center justify-center disabled:opacity-40"
+              aria-label="Enviar"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </form>
+        </div>
+      )}
+
+      {showOffer && (
+        <div className="fixed inset-0 z-[75] bg-black/60 flex items-end sm:items-center justify-center p-4">
+          <div className="w-full max-w-sm bg-white rounded-t-3xl sm:rounded-3xl p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold">Fazer oferta</h3>
+              <button onClick={() => { setShowOffer(false); setOfferSent(false); }} aria-label="Fechar"><X className="w-5 h-5" /></button>
+            </div>
+            {offerSent ? (
+              <div className="py-8 text-center">
+                <div className="w-14 h-14 rounded-full bg-[var(--olx-green-soft)] text-[var(--olx-green-text)] flex items-center justify-center mx-auto">
+                  <Check className="w-7 h-7" />
+                </div>
+                <p className="mt-4 font-semibold">Oferta enviada!</p>
+                <p className="text-sm text-muted-foreground mt-1">O vendedor será notificado.</p>
+              </div>
+            ) : (
+              <>
+                <p className="text-sm text-muted-foreground mt-2">Preço anunciado: R$ 1.700</p>
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-border px-4 py-3">
+                  <span className="text-muted-foreground">R$</span>
+                  <input
+                    value={offerValue}
+                    onChange={(e) => setOfferValue(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                    inputMode="numeric"
+                    placeholder="0"
+                    className="flex-1 outline-none text-lg font-semibold"
+                    autoFocus
+                  />
+                </div>
+                <button
+                  onClick={submitOffer}
+                  disabled={!offerValue}
+                  className="w-full mt-5 bg-[var(--olx-orange)] disabled:opacity-50 text-white font-semibold rounded-full py-3.5"
+                >
+                  Enviar oferta
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {showSuccess && (
+        <div className="fixed inset-0 z-[80] bg-white flex flex-col items-center justify-center p-6 text-center">
+          <div className="w-20 h-20 rounded-full bg-[var(--olx-green-soft)] text-[var(--olx-green-text)] flex items-center justify-center">
+            <Check className="w-10 h-10" />
+          </div>
+          <h2 className="text-2xl font-bold mt-6">Pedido realizado!</h2>
+          <p className="text-muted-foreground mt-2 max-w-xs">
+            Seu iPhone 13 Pro será enviado para{" "}
+            {form.rua ? `${form.rua}, ${form.numero} - ${form.cidade}/${form.estado}` : "seu endereço"}.
+          </p>
+          <button
+            onClick={() => setShowSuccess(false)}
+            className="mt-8 bg-[var(--olx-orange)] text-white font-semibold rounded-full px-10 py-3.5"
+          >
+            Voltar ao anúncio
+          </button>
+        </div>
+      )}
     </div>
   );
 }
