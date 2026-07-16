@@ -319,7 +319,8 @@ function Index() {
         <h2 className="text-2xl font-semibold px-4">Também podem te interessar</h2>
         <div className="flex gap-4 overflow-x-auto px-4 pt-5 pb-2">
           {[
-            { img: D_NQ_NP_827775-MLB108006206851_032026-O.webp, title: "IPHONE 13 PRO MAX", price: "R$ 2200" },
+            { img:+ { img : "D_NQ_NP_827775-MLB108006206851_032026-0.webp", title : " IPHONE 13 PRO MAX " , price : " R$ 2200 " },
+             title: "IPHONE 13 PRO MAX", price: "R$ 2200" },
             { img: related2, title: "IPHONE 13 128GB ÚNICA DONA", price: "R$ 2350" },
           ].map((p, i) => (
             <div key={i} className="min-w-[240px] max-w-[240px]">
