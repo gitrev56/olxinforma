@@ -12,7 +12,7 @@ import iphonePhoto2 from "@/assets/iphone-photo-2.webp.asset.json";
 import iphonePhoto3 from "@/assets/iphone-photo-3.webp.asset.json";
 import olxLogo from "@/assets/olx-logo-clean.png";
 import related1 from "@/assets/D_NQ_NP_827775-MLB108006206851_032026-O.webp.asset.json";
-import related2 from "@/assets/iphone-related-2.jpg";
+import related2 from "@/assets/6d743dd1ee0552aa8fb3ec3144bcc531%20IPHON.jpg";
 import sellerAvatar from "@/assets/seller-avatar.jpg";
 
 export const Route = createFileRoute("/")({
