@@ -318,9 +318,9 @@ function Index() {
       <section className="pt-8">
         <h2 className="text-2xl font-semibold px-4">Também podem te interessar</h2>
         <div className="flex gap-4 overflow-x-auto px-4 pt-5 pb-2">
-          
-  {   { img: related1, title: "IPHONE 13 PRO MAX", price: "R$ 2200" },
-          { img: related2, title: "IPHONE 13 128GB ÚNICA DONA", price: "R$ 2350" },
+          {[
+            { img: related1, title: "IPHONE 13 PRO MAX", price: "R$ 2200" },
+            { img: related2, title: "IPHONE 13 128GB ÚNICA DONA", price: "R$ 2350" },
           ].map((p, i) => (
             <div key={i} className="min-w-[240px] max-w-[240px]">
               <div className="relative">
@@ -447,7 +447,7 @@ function Index() {
         <div className="flex justify-center gap-8 mt-6">
           <Facebook className="w-7 h-7" />
           <Youtube className="w-7 h-7" />
-          <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.87a6.34 6.34 0 0 0 10.86-4.43V8.87a8.16 8.16 0 0 0 4.77 1.52V6.93a4.85 4.85 0 0 1-1.84-.24z"/></svg>
+          <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.9[...]
         </div>
       </footer>
 
@@ -524,7 +524,7 @@ function Index() {
               <Info className="w-6 h-6 text-sky-600 shrink-0" />
               <div className="text-sky-800">
                 <p className="font-bold">Envio do produto</p>
-                <p className="mt-2 leading-relaxed">O vendedor tem 5 dias para fazer o envio após o pagamento ser confirmado. Se esse prazo não for cumprido, você poderá cancelar a compra e o valor será estornado.</p>
+                <p className="mt-2 leading-relaxed">O vendedor tem 5 dias para fazer o envio após o pagamento ser confirmado. Se esse prazo não for cumprido, você poderá cancelar a compra e o[...]</p>
               </div>
             </div>
 
@@ -951,7 +951,7 @@ function Index() {
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-[#f7f7fb]">
             {chatMessages.map((m, i) => (
               <div key={i} className={`flex ${m.from === "me" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${m.from === "me" ? "bg-[var(--olx-purple)] text-white rounded-br-sm" : "bg-white border border-border text-foreground rounded-bl-sm"}`}>
+                <div className={`max-w-[75%] px-4 py-2.5 rounded-2xl text-sm ${m.from === "me" ? "bg-[var(--olx-purple)] text-white rounded-br-sm" : "bg-white border border-border text-foreground"}`}>
                   <p className="whitespace-pre-wrap break-words">{m.text}</p>
                   <p className={`text-[10px] mt-1 ${m.from === "me" ? "text-white/70 text-right" : "text-muted-foreground"}`}>{m.time}</p>
                 </div>
