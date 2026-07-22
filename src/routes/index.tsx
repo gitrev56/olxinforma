@@ -348,7 +348,7 @@ function Index() {
             <button className="text-[var(--olx-purple)] font-semibold mt-3">Saiba mais</button>
           </div>
           <div className="flex items-center gap-4 mt-6">
-            <img src={Avatar} alt="bruna rodrigues." width={1024} height={1024} loading="lazy" className="w-20 h-20 rounded-full object-cover" />
+            <img src={sellerAvatar} alt="bruna rodrigues." width={1024} height={1024} loading="lazy" className="w-20 h-20 rounded-full object-cover" />
             <div>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 Conta verificada <CheckCircle2 className="w-4 h-4 fill-sky-500 text-white" />
@@ -447,7 +447,7 @@ function Index() {
         <div className="flex justify-center gap-8 mt-6">
           <Facebook className="w-7 h-7" />
           <Youtube className="w-7 h-7" />
-          <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.9[...]
+          <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a5.58 5.58 0 1 0 5.85 5.82v-5.85a7.7 7.7 0 0 0 4.54-1.88z" /></svg>
         </div>
       </footer>
 
@@ -524,7 +524,7 @@ function Index() {
               <Info className="w-6 h-6 text-sky-600 shrink-0" />
               <div className="text-sky-800">
                 <p className="font-bold">Envio do produto</p>
-                <p className="mt-2 leading-relaxed">O vendedor tem 5 dias para fazer o envio após o pagamento ser confirmado. Se esse prazo não for cumprido, você poderá cancelar a compra e o[...]</p>
+                <p className="mt-2 leading-relaxed">O vendedor tem 5 dias para fazer o envio após o pagamento ser confirmado. Se esse prazo não for cumprido, você poderá cancelar a compra e o dinheiro será devolvido.</p>
               </div>
             </div>
 
@@ -658,7 +658,7 @@ function Index() {
                     {deliveryDeadline === "padrao" && <div className="w-3.5 h-3.5 rounded-full bg-[var(--olx-purple)]" />}
                   </div>
                   <div>
-                    <p className="font-bold text-lg text-foreground">Padrão</p>
+                    <p className="font-bold text-lg text-foreground">Padr��o</p>
                     <p className="text-muted-foreground">Até 10 dias úteis</p>
                   </div>
                 </div>
