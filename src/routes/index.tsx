@@ -348,7 +348,7 @@ function Index() {
             <button className="text-[var(--olx-purple)] font-semibold mt-3">Saiba mais</button>
           </div>
           <div className="flex items-center gap-4 mt-6">
-            <img src={sellerAvatar} alt="Petala A." width={1024} height={1024} loading="lazy" className="w-20 h-20 rounded-full object-cover" />
+            <img src={Avatar} alt="bruna rodrigues." width={1024} height={1024} loading="lazy" className="w-20 h-20 rounded-full object-cover" />
             <div>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 Conta verificada <CheckCircle2 className="w-4 h-4 fill-sky-500 text-white" />
